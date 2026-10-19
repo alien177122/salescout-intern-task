@@ -1,3 +1,48 @@
+# SaleScout: мини прайс-бот (решение тестового)
+
+Функция расчёта цены, HTTP API на Express и страница на React (Vite) с таблицей «было / стало».
+
+## Запуск
+
+Нужен Node.js 20+.
+
+```bash
+npm install
+npm run dev        # API на http://localhost:3001 и фронт на http://localhost:5173
+```
+
+Откройте http://localhost:5173: страница отправляет `data/products.json` в `POST /reprice` и показывает результат. Vite проксирует `/reprice` на API, поэтому CORS не нужен.
+
+По отдельности: `npm run dev:api` (сервер с перезапуском) и `npm run dev:web` (фронт). Сервер без watch: `npm run start:api`, порт меняется через `PORT`.
+
+```bash
+npm test           # vitest: calculatePrice и эндпоинт
+npm run typecheck  # tsc --noEmit
+npm run build:web  # сборка фронта в dist/
+```
+
+Пример запроса:
+
+```bash
+curl -X POST http://localhost:3001/reprice -H "Content-Type: application/json" -d @data/products.json
+```
+
+## Структура
+
+- `src/pricing.ts` — `calculatePrice`, чистая функция без I/O.
+- `src/types.ts` — общие типы для сервера и фронта.
+- `server/app.ts` — Express-приложение: `POST /reprice`, проверка тела (не массив, некорректный товар или битый JSON дают `400`).
+- `server/index.ts` — запуск сервера.
+- `web/` — React-страница.
+- `tests/` — тесты функции и эндпоинта (supertest).
+
+## Решения
+
+- Дробные цены: `349999.9 - 0.5` в JS даёт ровно `349999.4`, но, например, `131072.8 - 0.8` даёт `131071.99999999999`. Чтобы `floor` не отнимал лишний тенге из-за погрешности, значение, отличающееся от целого меньше чем на `1e-9`, округляется до этого целого.
+- `myPrice` в расчёте не участвует, только возвращается как `oldPrice`.
+
+---
+
 # SaleScout — тестовое задание для стажёра (web-разработчик)
 
 SaleScout — SaaS-сервис, который автоматически управляет ценами продавцов на Kaspi.kz:

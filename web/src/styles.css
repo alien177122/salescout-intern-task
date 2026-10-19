@@ -1,0 +1,11 @@
+body { margin: 0; font-family: system-ui, sans-serif; background: #f6f7f9; color: #1d1f23; }
+main { max-width: 960px; margin: 40px auto; padding: 0 16px; }
+h1 { font-size: 24px; }
+table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgb(0 0 0 / 0.08); }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eceef1; }
+th { background: #fafbfc; font-weight: 600; font-size: 14px; }
+.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.sku { font-family: ui-monospace, monospace; font-size: 13px; }
+.down { color: #0a7d32; }
+.up { color: #b3261e; }
+.error { color: #b3261e; }
