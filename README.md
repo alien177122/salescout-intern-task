@@ -4,7 +4,7 @@
 
 ## Запуск
 
-Нужен Node.js 20+.
+Нужен Node.js 22.12+.
 
 ```bash
 npm install
